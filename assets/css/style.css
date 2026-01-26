@@ -12,7 +12,7 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f9;
+  background-color: #f8f9f9;
 }
 
 /* Auth Pages */
@@ -305,4 +305,271 @@ body {
   .no-print {
     display: none !important;
   }
+}
+
+/* Dashboard Container */
+.dashboard-container {
+  padding: 20px 0;
+}
+
+/* Stat Cards */
+.stat-card {
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  opacity: 0.3;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #343a40;
+  min-height: calc(100vh - 56px);
+  padding: 0;
+}
+
+.sidebar .nav-link {
+  color: #ffffff;
+  padding: 15px 20px;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #495057;
+  border-left-color: #007bff;
+}
+
+.sidebar .nav-link.active {
+  background-color: #007bff;
+  border-left-color: #0056b3;
+}
+
+.sidebar .nav-link i {
+  margin-right: 10px;
+  width: 20px;
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+/* Exam Cards */
+.exam-card {
+  transition: all 0.3s ease;
+}
+
+.exam-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Question Container */
+.question-container {
+  border: 1px solid #e9ecef;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+}
+
+.question-number {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #007bff;
+}
+
+/* Badges */
+.badge {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+}
+
+/* Tables */
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  border-top: none;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  color: #495057;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 5px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.btn-group-sm .btn {
+  padding: 4px 8px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Auth Page */
+.auth-page {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.auth-page .card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Forms */
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Alerts */
+.alert {
+  border-radius: 8px;
+  border: none;
+}
+
+.alert-dismissible .close {
+  padding: 0.5rem 1rem;
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 10px;
+  border: none;
+}
+
+.modal-header {
+  border-bottom: 2px solid #e9ecef;
+}
+
+.modal-footer {
+  border-top: 2px solid #e9ecef;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    min-height: auto;
+  }
+
+  .stat-card {
+    margin-bottom: 15px;
+  }
+
+  .table-responsive {
+    font-size: 0.9rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .navbar,
+  .sidebar,
+  .btn,
+  .no-print {
+    display: none !important;
+  }
+
+  .container-fluid,
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .card {
+    box-shadow: none;
+    border: 1px solid #dee2e6;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Loading Spinner */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}
+
+/* Toast Notifications */
+.toast {
+  border-radius: 8px;
+}
+
+.toast-header {
+  border-bottom: none;
+}
+
+/* Progress Bar */
+.progress {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  transition: width 0.6s ease;
 }

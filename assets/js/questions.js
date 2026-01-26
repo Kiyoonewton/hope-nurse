@@ -1,13 +1,14 @@
-// Question Management JavaScript
-
+// Global variables
 let optionCount = 0;
 let multiSelectCount = 0;
 
+// Show question modal
 function showQuestionModal() {
   resetQuestionForm();
   $("#questionModal").modal("show");
 }
 
+// Reset question form
 function resetQuestionForm() {
   $("#modalAction").val("create");
   $("#questionId").val("");
@@ -16,182 +17,216 @@ function resetQuestionForm() {
   $("#question_type").val("");
   $("#marks").val("1");
   $("#order_number").val("0");
+  $("#correct_answer_text").val("");
 
   // Hide all question type options
   $(".question-type-options").hide();
-  $("#optionsContainer").empty();
-  $("#multiSelectContainer").empty();
-  $("#correct_answer_text").val("");
+
+  // Reset radio buttons
   $('input[name="correct_answer"]').prop("checked", false);
 
+  // Clear option containers
+  $("#optionsContainer").empty();
+  $("#multiSelectContainer").empty();
   optionCount = 0;
   multiSelectCount = 0;
 }
 
+// Change question type
 function changeQuestionType() {
-  const type = $("#question_type").val();
+  const questionType = $("#question_type").val();
 
   // Hide all options first
   $(".question-type-options").hide();
 
-  // Show relevant options based on type
-  if (type === "multiple_choice") {
-    $("#multipleChoiceOptions").show();
-    if (optionCount === 0) {
-      for (let i = 0; i < 4; i++) {
+  // Show relevant option based on type
+  switch (questionType) {
+    case "multiple_choice":
+      $("#multipleChoiceOptions").show();
+      // Add default options if empty
+      if ($("#optionsContainer").children().length === 0) {
+        addOption();
+        addOption();
+        addOption();
         addOption();
       }
-    }
-  } else if (type === "multiple_select") {
-    $("#multipleSelectOptions").show();
-    if (multiSelectCount === 0) {
-      for (let i = 0; i < 4; i++) {
+      break;
+
+    case "multiple_select":
+      $("#multipleSelectOptions").show();
+      // Add default options if empty
+      if ($("#multiSelectContainer").children().length === 0) {
+        addMultiSelectOption();
+        addMultiSelectOption();
+        addMultiSelectOption();
         addMultiSelectOption();
       }
-    }
-  } else if (type === "true_false") {
-    $("#trueFalseOptions").show();
-  } else if (type === "short_answer" || type === "fill_blank") {
-    $("#textAnswerOptions").show();
+      break;
+
+    case "true_false":
+      $("#trueFalseOptions").show();
+      break;
+
+    case "short_answer":
+    case "fill_blank":
+      $("#textAnswerOptions").show();
+      break;
   }
 }
 
+// Add multiple choice option
 function addOption() {
+  const index = optionCount++;
   const optionHtml = `
-        <div class="input-group mb-2 option-row">
-            <div class="input-group-prepend">
-                <div class="input-group-text">
-                    <input type="radio" name="correct_option" value="${optionCount}" required>
+        <div class="form-group option-item" id="option_${index}">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="radio" name="correct_option" value="${index}" required>
+                    </div>
                 </div>
-            </div>
-            <input type="text" class="form-control" name="options[]" placeholder="Option ${optionCount + 1}" required>
-            <div class="input-group-append">
-                <button class="btn btn-danger" type="button" onclick="removeOption(this)">
-                    <i class="fas fa-times"></i>
-                </button>
+                <input type="text" class="form-control" name="options[]" placeholder="Enter option text" required>
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-danger" onclick="removeOption(${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
             </div>
         </div>
     `;
   $("#optionsContainer").append(optionHtml);
-  optionCount++;
 }
 
+// Remove multiple choice option
+function removeOption(index) {
+  $("#option_" + index).remove();
+}
+
+// Add multiple select option
 function addMultiSelectOption() {
+  const index = multiSelectCount++;
   const optionHtml = `
-        <div class="input-group mb-2 option-row">
-            <div class="input-group-prepend">
-                <div class="input-group-text">
-                    <input type="checkbox" name="correct_options[]" value="${multiSelectCount}">
+        <div class="form-group option-item" id="multi_option_${index}">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="checkbox" name="correct_options[]" value="${index}">
+                    </div>
                 </div>
-            </div>
-            <input type="text" class="form-control" name="options[]" placeholder="Option ${multiSelectCount + 1}" required>
-            <div class="input-group-append">
-                <button class="btn btn-danger" type="button" onclick="removeMultiSelectOption(this)">
-                    <i class="fas fa-times"></i>
-                </button>
+                <input type="text" class="form-control" name="options[]" placeholder="Enter option text" required>
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-danger" onclick="removeMultiSelectOption(${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
             </div>
         </div>
     `;
   $("#multiSelectContainer").append(optionHtml);
-  multiSelectCount++;
 }
 
-function removeOption(button) {
-  $(button).closest(".option-row").remove();
+// Remove multiple select option
+function removeMultiSelectOption(index) {
+  $("#multi_option_" + index).remove();
 }
 
-function removeMultiSelectOption(button) {
-  $(button).closest(".option-row").remove();
-}
-
+// Edit question
 function editQuestion(question, questionId) {
   resetQuestionForm();
 
   $("#modalAction").val("edit");
-  $("#questionId").val(questionId);
+  $("#questionId").val(question.id);
   $("#modalTitle").html('<i class="fas fa-edit"></i> Edit Question');
   $("#question_text").val(question.question_text);
   $("#question_type").val(question.question_type);
   $("#marks").val(question.marks);
   $("#order_number").val(question.order_number);
 
-  changeQuestionType();
-
-  // Load existing data based on question type
+  // Load options based on question type
   if (
     question.question_type === "multiple_choice" ||
     question.question_type === "multiple_select"
   ) {
     // Fetch options via AJAX
-    $.ajax({
-      url: "../api/get-question-options.php",
-      method: "GET",
-      data: { question_id: questionId },
-      dataType: "json",
-      success: function (options) {
+    $.get(
+      "../api/get-question-options.php",
+      { question_id: questionId },
+      function (options) {
         if (question.question_type === "multiple_choice") {
-          $("#optionsContainer").empty();
-          optionCount = 0;
-          options.forEach(function (option) {
+          $("#multipleChoiceOptions").show();
+          options.forEach(function (option, index) {
             const optionHtml = `
-                            <div class="input-group mb-2 option-row">
+                        <div class="form-group option-item" id="option_${index}">
+                            <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                        <input type="radio" name="correct_option" value="${optionCount}" ${option.is_correct == 1 ? "checked" : ""} required>
+                                        <input type="radio" name="correct_option" value="${index}" ${option.is_correct ? "checked" : ""} required>
                                     </div>
                                 </div>
                                 <input type="text" class="form-control" name="options[]" value="${escapeHtml(option.option_text)}" required>
                                 <div class="input-group-append">
-                                    <button class="btn btn-danger" type="button" onclick="removeOption(this)">
+                                    <button type="button" class="btn btn-danger" onclick="removeOption(${index})">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </div>
                             </div>
-                        `;
+                        </div>
+                    `;
             $("#optionsContainer").append(optionHtml);
-            optionCount++;
+            optionCount = index + 1;
           });
         } else {
-          $("#multiSelectContainer").empty();
-          multiSelectCount = 0;
-          options.forEach(function (option) {
+          $("#multipleSelectOptions").show();
+          options.forEach(function (option, index) {
             const optionHtml = `
-                            <div class="input-group mb-2 option-row">
+                        <div class="form-group option-item" id="multi_option_${index}">
+                            <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                        <input type="checkbox" name="correct_options[]" value="${multiSelectCount}" ${option.is_correct == 1 ? "checked" : ""}>
+                                        <input type="checkbox" name="correct_options[]" value="${index}" ${option.is_correct ? "checked" : ""}>
                                     </div>
                                 </div>
                                 <input type="text" class="form-control" name="options[]" value="${escapeHtml(option.option_text)}" required>
                                 <div class="input-group-append">
-                                    <button class="btn btn-danger" type="button" onclick="removeMultiSelectOption(this)">
+                                    <button type="button" class="btn btn-danger" onclick="removeMultiSelectOption(${index})">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </div>
                             </div>
-                        `;
+                        </div>
+                    `;
             $("#multiSelectContainer").append(optionHtml);
-            multiSelectCount++;
+            multiSelectCount = index + 1;
           });
         }
       },
-    });
+      "json",
+    );
   } else if (question.question_type === "true_false") {
-    $(
-      'input[name="correct_answer"][value="' + question.correct_answer + '"]',
-    ).prop("checked", true);
-  } else {
+    $("#trueFalseOptions").show();
+    if (question.correct_answer === "True") {
+      $("#true_option").prop("checked", true);
+    } else {
+      $("#false_option").prop("checked", true);
+    }
+  } else if (
+    question.question_type === "short_answer" ||
+    question.question_type === "fill_blank"
+  ) {
+    $("#textAnswerOptions").show();
     $("#correct_answer_text").val(question.correct_answer);
   }
 
   $("#questionModal").modal("show");
 }
 
+// Delete question
 function deleteQuestion(questionId) {
   $("#deleteQuestionId").val(questionId);
   $("#deleteModal").modal("show");
 }
 
+// Escape HTML to prevent XSS
 function escapeHtml(text) {
   const map = {
     "&": "&amp;",
@@ -206,26 +241,58 @@ function escapeHtml(text) {
 }
 
 // Form validation
-$("#questionForm").on("submit", function (e) {
-  const questionType = $("#question_type").val();
+$(document).ready(function () {
+  $("#questionForm").on("submit", function (e) {
+    const questionType = $("#question_type").val();
 
-  if (questionType === "multiple_choice") {
-    if ($('input[name="correct_option"]:checked').length === 0) {
+    if (!questionType) {
       e.preventDefault();
-      alert("Please select the correct answer option.");
+      alert("Please select a question type");
       return false;
     }
-  } else if (questionType === "multiple_select") {
-    if ($('input[name="correct_options[]"]:checked').length === 0) {
-      e.preventDefault();
-      alert("Please select at least one correct answer.");
-      return false;
+
+    // Validate based on question type
+    if (questionType === "multiple_choice") {
+      if ($('input[name="correct_option"]:checked').length === 0) {
+        e.preventDefault();
+        alert("Please select the correct answer");
+        return false;
+      }
+
+      if ($('input[name="options[]"]').length < 2) {
+        e.preventDefault();
+        alert("Please add at least 2 options");
+        return false;
+      }
+    } else if (questionType === "multiple_select") {
+      if ($('input[name="correct_options[]"]:checked').length === 0) {
+        e.preventDefault();
+        alert("Please select at least one correct answer");
+        return false;
+      }
+
+      if ($('input[name="options[]"]').length < 2) {
+        e.preventDefault();
+        alert("Please add at least 2 options");
+        return false;
+      }
+    } else if (questionType === "true_false") {
+      if ($('input[name="correct_answer"]:checked').length === 0) {
+        e.preventDefault();
+        alert("Please select the correct answer (True or False)");
+        return false;
+      }
+    } else if (
+      questionType === "short_answer" ||
+      questionType === "fill_blank"
+    ) {
+      if ($("#correct_answer_text").val().trim() === "") {
+        e.preventDefault();
+        alert("Please enter the expected answer");
+        return false;
+      }
     }
-  } else if (questionType === "true_false") {
-    if ($('input[name="correct_answer"]:checked').length === 0) {
-      e.preventDefault();
-      alert("Please select True or False as the correct answer.");
-      return false;
-    }
-  }
+
+    return true;
+  });
 });
