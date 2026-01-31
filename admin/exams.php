@@ -167,7 +167,7 @@ $csrf_token = generateCSRFToken();
                                                 <th>ID</th>
                                                 <th>Title</th>
                                                 <th>Duration</th>
-                                                <th>Passing Marks</th>
+                                                <th>Pass %</th>
                                                 <th>Questions</th>
                                                 <th>Status</th>
                                                 <th>Retake</th>
@@ -186,7 +186,7 @@ $csrf_token = generateCSRFToken();
                                                         <?php endif; ?>
                                                     </td>
                                                     <td><?php echo formatDuration($exam['duration']); ?></td>
-                                                    <td><?php echo $exam['passing_marks']; ?></td>
+                                                    <td><?php echo $exam['passing_marks']; ?>%</td>
                                                     <td>
                                                         <span class="badge badge-info"><?php echo $exam['question_count']; ?> questions</span>
                                                     </td>
@@ -273,8 +273,9 @@ $csrf_token = generateCSRFToken();
                             
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="passing_marks">Passing Marks</label>
-                                    <input type="number" class="form-control" id="passing_marks" name="passing_marks" min="0" value="0">
+                                    <label for="passing_marks">Passing Percentage (%)</label>
+                                    <input type="number" class="form-control" id="passing_marks" name="passing_marks" min="0" max="100" value="50">
+                                    <small class="form-text text-muted">Students must score at least this percentage to pass</small>
                                 </div>
                             </div>
                         </div>
@@ -359,7 +360,7 @@ $csrf_token = generateCSRFToken();
             $('#title').val('');
             $('#description').val('');
             $('#duration').val('');
-            $('#passing_marks').val('0');
+            $('#passing_marks').val('50');
             $('#status').val('draft');
             $('#allow_retake').prop('checked', false);
         }

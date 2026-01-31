@@ -359,7 +359,7 @@ $csrf_token = generateCSRFToken();
 
     <!-- Question Modal -->
     <div class="modal fade" id="questionModal" tabindex="-1">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl ">
             <div class="modal-content">
                 <form method="POST" action="" id="questionForm">
                     <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">

@@ -30,14 +30,14 @@ $result = $conn->query("
 ");
 $stats['completed'] = $result->fetch_assoc()['count'];
 
-// Passed exams
+// Passed exams (compare percentage against passing_marks which is now passing percentage)
 $result = $conn->query("
-    SELECT COUNT(*) as count 
+    SELECT COUNT(*) as count
     FROM exam_attempts ea
     JOIN exams e ON ea.exam_id = e.id
-    WHERE ea.student_id = $student_id 
+    WHERE ea.student_id = $student_id
     AND ea.status = 'submitted'
-    AND ea.score >= e.passing_marks
+    AND ea.percentage >= e.passing_marks
 ");
 $stats['passed'] = $result->fetch_assoc()['count'];
 
@@ -195,7 +195,7 @@ $stats['average'] = $avg_result['avg'] ?? 0;
                                     <?php
                                     $attempts->data_seek(0); // Reset pointer
                                     while ($attempt = $attempts->fetch_assoc()):
-                                        $passed = $attempt['score'] >= $attempt['passing_marks'];
+                                        $passed = $attempt['percentage'] >= $attempt['passing_marks'];
                                     ?>
                                         <tr>
                                             <td>

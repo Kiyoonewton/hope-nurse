@@ -17,7 +17,7 @@ function resetQuestionForm() {
   $("#question_type").val("");
   $("#marks").val("1");
   $("#order_number").val("0");
-  $("#correct_answer_text").val("");
+  $("#correct_answer_text").val("").prop("disabled", true);
 
   // Hide all question type options
   $(".question-type-options").hide();
@@ -38,6 +38,9 @@ function changeQuestionType() {
 
   // Hide all options first
   $(".question-type-options").hide();
+
+  // Disable text input by default to prevent it from submitting when hidden
+  $("#correct_answer_text").prop("disabled", true);
 
   // Show relevant option based on type
   switch (questionType) {
@@ -70,6 +73,8 @@ function changeQuestionType() {
     case "short_answer":
     case "fill_blank":
       $("#textAnswerOptions").show();
+      // Enable text input when this type is selected
+      $("#correct_answer_text").prop("disabled", false);
       break;
   }
 }
@@ -214,7 +219,7 @@ function editQuestion(question, questionId) {
     question.question_type === "fill_blank"
   ) {
     $("#textAnswerOptions").show();
-    $("#correct_answer_text").val(question.correct_answer);
+    $("#correct_answer_text").val(question.correct_answer).prop("disabled", false);
   }
 
   $("#questionModal").modal("show");

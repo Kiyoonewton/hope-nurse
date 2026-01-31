@@ -60,7 +60,8 @@ $csrf_token = generateCSRFToken();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Online Examination System</title>
+    <title>Login - Hope Nurse Examination System</title>
+    <?php include '../includes/favicon.php'; ?>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
@@ -72,9 +73,9 @@ $csrf_token = generateCSRFToken();
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
                         <div class="text-center mb-4">
-                            <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
-                            <h3 class="mb-2">Online Examination System</h3>
-                            <p class="text-muted">Sign in to your account</p>
+                            <img src="../assets/images/favicon-simple.webp" alt="Hope Nurse Logo" style="width: 80px; height: 80px; margin-bottom: 1rem;">
+                            <h3 class="mb-2" style="color: var(--hope-gold-dark); font-weight: 900;">Hope Nurse</h3>
+                            <p class="text-muted">Examination System</p>
                         </div>
                         
                         <?php if ($error): ?>

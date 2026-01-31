@@ -29,7 +29,7 @@ if ($result->num_rows == 0) {
 
 $attempt = $result->fetch_assoc();
 $exam_id = $attempt['exam_id'];
-$passed = $attempt['score'] >= $attempt['passing_marks'];
+$passed = $attempt['percentage'] >= $attempt['passing_marks'];
 $stmt->close();
 
 // Get questions and answers
