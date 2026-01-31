@@ -131,7 +131,7 @@ INSERT INTO
 VALUES (
         'admin',
         'admin@exam.com',
-        '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        '$2y$12$K23K5BqYHyABD0/BX374Y.4bLMke64CcfYRiWrQrxpXX/3LLdFvRe',
         'System Administrator',
         'admin',
         'active'
@@ -151,7 +151,7 @@ INSERT INTO
 VALUES (
         'student1',
         'student1@exam.com',
-        '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        '$2y$12$H8lc4W3s9LljzYk2/rDBbOXtA0q74hE/kHQ.UDLNX4UJJBPTleI7i',
         'John Doe',
         'student',
         'active'
@@ -159,7 +159,7 @@ VALUES (
     (
         'student2',
         'student2@exam.com',
-        '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        '$2y$12$H8lc4W3s9LljzYk2/rDBbOXtA0q74hE/kHQ.UDLNX4UJJBPTleI7i',
         'Jane Smith',
         'student',
         'active'

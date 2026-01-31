@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 880" fill="none">
+  <!-- Background circle for better visibility -->
+  <circle cx="440" cy="440" r="440" fill="#FAFAFA"/>
+
+  <!-- Sun -->
+  <g transform="translate(440, 220)">
+    <!-- Sun center circle -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+
+    <!-- Sun rays -->
+    <!-- Top -->
+    <line x1="0" y1="-140" x2="0" y2="-210" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+    <!-- Top Right -->
+    <line x1="99" y1="-99" x2="149" y2="-149" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+    <!-- Right -->
+    <line x1="140" y1="0" x2="210" y2="0" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+    <!-- Bottom Right -->
+    <line x1="99" y1="99" x2="149" y2="149" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+    <!-- Bottom -->
+    <line x1="0" y1="140" x2="0" y2="210" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+    <!-- Bottom Left -->
+    <line x1="-99" y1="99" x2="-149" y2="149" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+    <!-- Left -->
+    <line x1="-140" y1="0" x2="-210" y2="0" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+    <!-- Top Left -->
+    <line x1="-99" y1="-99" x2="-149" y2="-149" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+  </g>
+
+  <!-- Fields (curved lines) -->
+  <g transform="translate(440, 480)">
+    <!-- Field line 1 (top) -->
+    <path d="M -380 0 Q -190 40, 0 20 T 380 0" fill="none" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+
+    <!-- Field line 2 -->
+    <path d="M -380 70 Q -190 110, 0 90 T 380 70" fill="none" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+
+    <!-- Field line 3 -->
+    <path d="M -380 140 Q -190 180, 0 160 T 380 140" fill="none" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+
+    <!-- Field line 4 (bottom) -->
+    <path d="M -380 210 Q -190 250, 0 230 T 380 210" fill="none" stroke="#D4A03A" stroke-width="28" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -32,7 +32,7 @@ if (count($where_clauses) > 0) {
 }
 
 $sql = "
-    SELECT ea.*, e.title as exam_title, u.full_name as student_name, u.username
+    SELECT ea.*, e.title as exam_title, e.passing_marks, u.full_name as student_name, u.username
     FROM exam_attempts ea
     JOIN exams e ON ea.exam_id = e.id
     JOIN users u ON ea.student_id = u.id
@@ -193,6 +193,7 @@ $exams = $conn->query("SELECT id, title FROM exams ORDER BY title");
                                                 <th>Exam</th>
                                                 <th>Score</th>
                                                 <th>Percentage</th>
+                                                <th>Result</th>
                                                 <th>Status</th>
                                                 <th>Start Time</th>
                                                 <th>Duration</th>
@@ -222,6 +223,17 @@ $exams = $conn->query("SELECT id, title FROM exams ORDER BY title");
                                                         <span class="badge <?php echo $badge_class; ?>">
                                                             <?php echo $percentage; ?>%
                                                         </span>
+                                                    </td>
+                                                    <td>
+                                                        <?php if ($result['status'] == 'submitted'): ?>
+                                                            <?php if ($percentage >= $result['passing_marks']): ?>
+                                                                <span class="badge badge-success"><i class="fas fa-check"></i> Passed</span>
+                                                            <?php else: ?>
+                                                                <span class="badge badge-danger"><i class="fas fa-times"></i> Failed</span>
+                                                            <?php endif; ?>
+                                                        <?php else: ?>
+                                                            <span class="text-muted">-</span>
+                                                        <?php endif; ?>
                                                     </td>
                                                     <td>
                                                         <span class="badge <?php echo getAttemptStatusBadge($result['status']); ?>">
