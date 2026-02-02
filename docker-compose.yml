@@ -1,0 +1,23 @@
+services:
+  mysql:
+    image: mysql:9.0
+    container_name: exam_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root123}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-exam_system}
+      MYSQL_USER: ${MYSQL_USER:-exam_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-exam_password}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/exam_system_full_dump.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:

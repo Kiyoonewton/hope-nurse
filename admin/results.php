@@ -145,7 +145,7 @@ $exams = $conn->query("SELECT id, title FROM exams ORDER BY title");
                                             <select class="form-control" id="student_id" name="student_id">
                                                 <option value="">All Students</option>
                                                 <?php while ($student = $students->fetch_assoc()): ?>
-                                                    <option value="<?php echo $student['id']; ?>" 
+                                                    <option value="<?php echo $student['id']; ?>"
                                                             <?php echo ($student_id == $student['id']) ? 'selected' : ''; ?>>
                                                         <?php echo htmlspecialchars($student['full_name']) . ' (' . htmlspecialchars($student['username']) . ')'; ?>
                                                     </option>
@@ -153,14 +153,14 @@ $exams = $conn->query("SELECT id, title FROM exams ORDER BY title");
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="exam_id">Filter by Exam</label>
                                             <select class="form-control" id="exam_id" name="exam_id">
                                                 <option value="">All Exams</option>
                                                 <?php while ($exam = $exams->fetch_assoc()): ?>
-                                                    <option value="<?php echo $exam['id']; ?>" 
+                                                    <option value="<?php echo $exam['id']; ?>"
                                                             <?php echo ($exam_id == $exam['id']) ? 'selected' : ''; ?>>
                                                         <?php echo htmlspecialchars($exam['title']); ?>
                                                     </option>
@@ -168,7 +168,7 @@ $exams = $conn->query("SELECT id, title FROM exams ORDER BY title");
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-2">
                                         <label>&nbsp;</label>
                                         <button type="submit" class="btn btn-primary btn-block">
