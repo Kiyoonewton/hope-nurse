@@ -1,10 +1,11 @@
 <?php
 // Database Configuration
-define('DB_HOST', '127.0.0.1');  // Use 127.0.0.1 instead of localhost
-define('DB_PORT', '3306');       // Explicitly specify port
-define('DB_USER', 'kiyoonewton'); // Your Docker MySQL user
-define('DB_PASS', 'Olaoluwa@41'); // Your Docker MySQL password
-define('DB_NAME', 'exam_system');
+// Use environment variables if available (for Docker), otherwise use defaults
+define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
+define('DB_PORT', getenv('DB_PORT') ?: '3306');
+define('DB_USER', getenv('DB_USER') ?: 'kiyoonewton');
+define('DB_PASS', getenv('DB_PASS') ?: 'Olaoluwa@41');
+define('DB_NAME', getenv('DB_NAME') ?: 'exam_system');
 
 // Create database connection
 function getDBConnection() {
